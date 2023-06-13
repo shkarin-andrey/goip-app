@@ -4,7 +4,7 @@ import { useWebTelegramApp } from '../../hooks/useWebTelegramApp';
 import { useGetUserIdQuery } from '../../redux/api/users';
 
 const UserInfo: FC = () => {
-  const { onDataUnsafe } = useWebTelegramApp();
+  const { onDataUnsafe, onData } = useWebTelegramApp();
 
   console.log(onDataUnsafe().user);
 
@@ -28,15 +28,7 @@ const UserInfo: FC = () => {
           <div className='text-[#5AC8FB] text-[13px]'>{user?.usernames}</div>
         </div>
       </div>
-      <div>
-        {user?.first_name}
-        {user?.id}
-        {user?.is_bot}
-        {user?.language_code}
-        {user?.last_name}
-        {user?.photo_url}
-        {user?.usernames}
-      </div>
+      <div>{onData()}</div>
     </>
   );
 };
