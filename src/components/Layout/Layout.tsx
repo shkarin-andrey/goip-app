@@ -9,7 +9,7 @@ const Layout: FC<ILayout> = ({ children }) => {
     <div className='bg-[#1C1936] h-screen overflow-y-auto'>
       <Header />
       <UserInfo />
-      <div className='p-4'>{children}</div>
+      <div className='p-4 h-full'>{children}</div>
     </div>
   );
 };

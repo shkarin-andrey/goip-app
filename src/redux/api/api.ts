@@ -10,7 +10,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers) => {
     const { onDataUnsafe } = useWebTelegramApp();
 
-    const user_id = onDataUnsafe().user?.id || 940222589;
+    // TODO: удбарть mock
+    const user_id = onDataUnsafe().user?.id || 2127564034;
     const token = btoa(`${user_id}:password`);
     headers.set('Authorization', `Basic ${token}`);
 

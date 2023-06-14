@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { useGetGateQuery } from '../../redux/api/gate';
 import { GateItem, GateList } from '../../types/gate.interface';
@@ -6,33 +6,43 @@ import Divider from '../Divider';
 import AccordionChannel from './AccordionChannel';
 import AccordionGate from './AccordionGate';
 
-const Accordion: FC = () => {
+interface IAccordion {
+  selectGate: GateList | null;
+  selectChannel: GateItem | null;
+  setSelectGate: React.Dispatch<React.SetStateAction<GateList | null>>;
+  setSelectChannel: React.Dispatch<React.SetStateAction<GateItem | null>>;
+}
+
+const Accordion: FC<IAccordion> = ({
+  selectGate,
+  selectChannel,
+  setSelectGate,
+  setSelectChannel,
+}) => {
   const { data } = useGetGateQuery();
 
   const [openChannel, setOpenChannel] = useState(false);
   const [openGate, setOpenGate] = useState(false);
-  const [selectGate, setSelectGate] = useState<GateList | null>(null);
-  const [selectChannel, setSelectChannel] = useState<GateItem | null>(null);
 
-  const handleSelectChannel = (el: GateItem) => {
+  const handleSelectChannel = useCallback((el: GateItem) => {
     setSelectChannel(el);
     setOpenChannel(false);
-  };
+  }, []);
 
-  const handleSelectGate = (el: GateList) => {
+  const handleSelectGate = useCallback((el: GateList) => {
     setSelectGate(el);
     setSelectChannel(null);
     setOpenGate(false);
     setOpenChannel(true);
-  };
+  }, []);
 
-  const handleOpenChannel = () => {
+  const handleOpenChannel = useCallback(() => {
     setOpenChannel((prev) => !prev);
-  };
+  }, []);
 
-  const handleOpenGate = () => {
+  const handleOpenGate = useCallback(() => {
     setOpenGate((prev) => !prev);
-  };
+  }, []);
 
   return (
     <div className='rounded-[13px] overflow-hidden'>
